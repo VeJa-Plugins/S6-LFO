@@ -1,24 +1,18 @@
 #!/bin/bash
+export PLUGIN_NAME=$1
 
 set -e
 
-list_bundles() {
-    echo "m8-lfo.lv2"
-}
-
-if [ "x${1}x" == "x-lx" ]; then
-    list_bundles
-    exit 0
-fi
-
 if [ "x${LV2_PATH}x" == "xx" ]; then
-    LV2_PATH=~/.lv2/
+    LV2_PATH=/usr/local/lib/lv2
 fi
 
-for i in m8-lfo; do
-    cd $i
-    make clean
-    make
-    make INSTALL_PATH=$LV2_PATH install
-    cd ..
-done
+PLUGIN_BUILD_PATH=$(pwd)
+
+cd $PLUGIN_NAME
+make clean
+make
+make INSTALL_PATH=$LV2_PATH install
+cd $INSTALL_PATH
+chmod 755 *
+cd $PLUGIN_BUILD_PATH

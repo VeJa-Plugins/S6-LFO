@@ -1,5 +1,5 @@
 EFFECTS_DIR = \
-m8-lfo
+$(PLUGIN_NAME)
 
 ifeq ($(MOD),1)
 EFFECTS_DIR += HardwareBypass

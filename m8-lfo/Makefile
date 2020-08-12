@@ -1,10 +1,9 @@
 
-NAME = m8-lfo
+NAME = $(PLUGIN_NAME)
 
 # installation path
 INSTALL_PATH = /usr/local/lib/lv2
 COMPLETE_INSTALL_PATH = $(DESTDIR)$(INSTALL_PATH)/$(NAME).lv2
-
 # compiler and linker
 CXX ?= g++
 
