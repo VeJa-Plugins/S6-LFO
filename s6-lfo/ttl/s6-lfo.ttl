@@ -76,8 +76,8 @@ lv2:port
         rdfs:label "square" ;
         rdf:value 3
     ], [
-        rdfs:label "noise" ;
-        rdf:value 4
+        rdfs:label "random" ;
+        rdf:value 5
     ]
 ]
 ,

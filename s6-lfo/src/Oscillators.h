@@ -38,6 +38,8 @@ namespace VeJa
 					, _phase(static_cast<T>(0))
 					, _increment(static_cast<T>(0))
 					, _pulseWidth(static_cast<T>(0.5))
+					, _hold(0.f)
+					,_holdCounter(0)
 					, _delayCounter(0)
 				{
 					GenerateWavetable();
@@ -49,7 +51,6 @@ namespace VeJa
 				{
 					_frequency = frequency;
 					_period = static_cast<T>((1 / _frequency) / (1.f / _samplerate));
-					_holdCounter = 0;
 				}
 
 				void SetPulseWidth(float width)
@@ -57,7 +58,7 @@ namespace VeJa
 					_pulseWidth = width;
 				}
 
-				void SetDelay(uint32_t delayInSeconds)
+				void SetDelay(float delayInSeconds)
 				{
 					if (delayInSeconds == 0)
 					{
@@ -71,12 +72,6 @@ namespace VeJa
 
 				void UpdateFrequency()
 				{
-					if (_delayCounter != 0)
-					{
-						_delayCounter--;
-						return;
-					}
-
 					_increment = _frequency * _wavetableSize / _samplerate;
 					_phase = static_cast<T>(fmod((_phase + _increment), _wavetableSize));
 
@@ -93,10 +88,17 @@ namespace VeJa
 						_square = static_cast<T>(-1);
 					}
 
-					//reset?
+					//reset
 					if (_counter >= _period)
 					{
 						_counter = 0;
+					}
+
+					//delay counter
+					if (_delayCounter != 0)
+					{
+						_delayCounter--;
+						return;
 					}
 				}
 
@@ -133,7 +135,9 @@ namespace VeJa
 						return output;
 						break;
 					case 5:
-						output = SampleAndHold();
+						output = SampleAndHold(_phase);
+						return output;
+						break;
 					case 6:
 						output = _squareTable[static_cast<size_t>(_phase)];
 						return output;
@@ -194,16 +198,19 @@ namespace VeJa
 					return static_cast<T>(result);
 				}
 
-				//TODO FIX ME
-				T SampleAndHold()
+				T SampleAndHold(float phase)
 				{
-					if (_holdCounter > ((1 / _frequency) * _samplerate))
+					if (_holdCounter < _period)
 					{
-						_holdCounter = 0;
-						_hold = static_cast<T>(rand()) / static_cast<T>(RAND_MAX);
+						return _hold;
 					}
-
-					return _hold;
+					else
+					{
+						auto randomIndex = 0 + (rand() % static_cast<uint32_t>(_wavetableSize - 0 + 1));
+						_hold = _noiseTable[static_cast<size_t>(randomIndex)];
+						_holdCounter = 0;
+						return _hold;
+					}
 				}
 
 				// variables
@@ -218,16 +225,16 @@ namespace VeJa
 				T _frequency;
 				T _phase;
 				T _increment;
-				T _hold;
 
 				T _square;
 				float _pulseWidth;
 				uint8_t _oscilatorDelay;
-				uint32_t _delayCounter;
 				uint32_t _counter;
-				uint32_t _holdCounter;
-				uint32_t _period;
+				T _period;
 
+				T _hold;
+				uint32_t _holdCounter;
+				uint32_t _delayCounter;
 			};
 		}
 	}
