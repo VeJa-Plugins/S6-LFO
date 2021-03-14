@@ -1,0 +1,30 @@
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+
+<http://VeJaPlugins.com/plugins/Release/s6lfo>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-s6-lfo.html> ;
+        modgui:stylesheet <modgui/stylesheet-s6-lfo.css> ;
+        modgui:screenshot <modgui/screenshot-s6-lfo.png> ;
+        modgui:thumbnail <modgui/thumbnail-s6-lfo.png> ;
+        modgui:brand "VeJa" ;
+        modgui:label "S6 LFO" ;
+        modgui:model "boxy" ;
+        modgui:panel "1-select-2-knobs" ;
+        modgui:color "black" ;
+        modgui:knob "purple" ;
+        modgui:port [
+            lv2:index 0 ;
+            lv2:symbol "LFO_Waveform" ;
+            lv2:name "LFO Waveform" ;
+        ] , [
+            lv2:index 1 ;
+            lv2:symbol "RATE" ;
+            lv2:name "Rate" ;
+        ] , [
+            lv2:index 2 ;
+            lv2:symbol "DELAY" ;
+            lv2:name "Delay" ;
+        ] ;
+    ] .

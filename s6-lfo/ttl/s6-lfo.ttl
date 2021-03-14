@@ -64,7 +64,7 @@ lv2:port
     lv2:maximum 5 ;
     lv2:scalePoint
     [
-        rdfs:label "sin" ;
+        rdfs:label "sine" ;
         rdf:value 0 
     ] , [
         rdfs:label "triangle" ;
