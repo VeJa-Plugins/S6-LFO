@@ -1,4 +1,5 @@
 #!/bin/bash
+export PLUGIN_NAME=$1
 
 set -e
 
