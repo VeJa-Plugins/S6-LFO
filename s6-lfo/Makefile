@@ -1,5 +1,5 @@
 
-NAME = m8-lfo
+NAME = s6-lfo
 
 # installation path
 INSTALL_PATH = /usr/local/lib/lv2

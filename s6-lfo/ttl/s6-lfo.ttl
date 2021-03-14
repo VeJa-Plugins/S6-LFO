@@ -10,14 +10,14 @@
 @prefix midi: <http://lv2plug.in/ns/ext/midi#> .
 @prefix urid: <http://lv2plug.in/ns/ext/urid#> .
 
-<http://VeJaPlugins.com/plugins/Release/m8lfo> 
+<http://VeJaPlugins.com/plugins/Release/s6lfo> 
 a lv2:Plugin, mod:ControlVoltagePlugin;
 lv2:requiredFeature urid:map ;
 
-doap:name "M8 LFO";
+doap:name "S6 LFO";
 
 doap:developer [
-    foaf:name "Jarno & Jan";
+    foaf:name "VeJa Plugins";
     foaf:homepage <>;
     foaf:mbox <mailto:jan@moddevices.com>;
     ];
@@ -32,7 +32,10 @@ doap:maintainer [
     lv2:microVersion 2;
 
 rdfs:comment """
-CV module that contains the LFO used inside the Mars-8 project
+CV module that contains the LFO used inside the Saturn-6 project
+
+The plugin features various waveforms, and a trigger input which can be used to only enable the LFO after a trigger input is given + an amount of delay
+
 """;
 
 lv2:port
